@@ -3,7 +3,7 @@
   <component name="Black">
     <option name="sdkName" value="infdsa_mnist" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (infdsa_mnist) (2)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (INFDSA_MNIST)" project-jdk-type="Python SDK" />
   <component name="PyCharmDSProjectLayout">
     <option name="id" value="JupyterRightHiddenStructureLayout" />
   </component>
