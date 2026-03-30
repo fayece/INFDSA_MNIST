@@ -95,3 +95,24 @@ def create_dataset_table(
     df = pd.DataFrame(data, columns=columns)
 
     return df.style.set_caption(caption).hide(axis="index")
+
+
+def display_total_errors_barplot(cm, title="Total Misclassifications per Digit"):
+    total_instances = np.sum(cm, axis=1)
+    correct_guesses = np.diagonal(cm)
+    total_errors = total_instances - correct_guesses
+    digits = np.arange(10)
+
+    average_errors = np.mean(total_errors)
+    avg_label = f"Average: {average_errors:.2f}"
+
+    display_barplot(
+        x_vals=digits,
+        y_vals=total_errors,
+        title=title,
+        x_label='Digit Class',
+        y_label='Total Number of Errors',
+        text_fmt=".0f",
+        hline_val=average_errors,
+        hline_label=avg_label
+    )

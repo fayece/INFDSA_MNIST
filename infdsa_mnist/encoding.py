@@ -53,14 +53,16 @@ def binary_threshold(img: np.ndarray, threshold: int = 128) -> np.ndarray:
     return (img > threshold).astype(np.uint8)
 
 
-def bin_pixels(img: np.ndarray) -> np.ndarray:
+def bin_pixels(img: np.ndarray, bins: int = 4) -> np.ndarray:
     """
-    Group pixel values into 4 bins (0-3), representing 2-bit encoding.
-    Memory reduction: 75%
+    Group pixel values into discrete bins. With the default of 4 bins, reduces pixel precision from 8-bit to 2-bit.
+    Memory reduction (4 bins): 75%
     :param img: uint8 image
+    :param bins: Number of bins to group pixel values into (default: 4).
     :return: uint8 image with values in range 0–3.
     """
-    return (img // 64).astype(np.uint8)
+    bin_size = 256 // bins
+    return (img // bin_size).astype(np.uint8)
 
 
 def downscale(img: np.ndarray) -> np.ndarray:

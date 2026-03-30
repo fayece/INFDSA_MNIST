@@ -1,5 +1,5 @@
 from infdsa_mnist import helpers
-from .mnist_output import display_grid
+from infdsa_mnist.mnist_output import display_grid
 import numpy as np
 import math
 

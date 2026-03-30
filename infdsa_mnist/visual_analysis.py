@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from scipy.spatial.distance import cdist
-from .mnist_output import display_grid
+from infdsa_mnist.mnist_output import display_grid
 
 
 def display_single_digit(x_train, y_train, digit, amount=5, seed=None):

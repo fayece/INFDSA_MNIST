@@ -1,5 +1,5 @@
 import pandas as pd
-from .mnist_output import create_dataset_table
+from infdsa_mnist.mnist_output import create_dataset_table
 
 
 def create_image_count_df(train_images, test_images, total_images):
