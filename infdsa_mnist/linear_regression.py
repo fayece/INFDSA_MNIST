@@ -1,5 +1,5 @@
 from sklearn.linear_model import LinearRegression
-from infdsa_mnist.decision_tree import extract_features as _extract_features
+from infdsa_mnist.features import extract_features as _extract_features
 import numpy as np
 
 
