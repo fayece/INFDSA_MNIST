@@ -1,17 +1,10 @@
 import numpy as np
 import time
 from sklearn.cluster import KMeans
-
-from infdsa_mnist.mnist_load import load_mnist_normalized as _load_mnist_normalized
 from infdsa_mnist.encoding import bin_pixels
 
 
 np.random.seed(70000)  # Using 70000 as the seed for reproducibility, based on the fact the MNIST dataset has 70,000 total images.
-
-
-def load_mnist(npz_path='mnist.npz'):
-    (x_train, y_train), (x_test, y_test) = _load_mnist_normalized(npz_path)
-    return (x_train, y_train), (x_test, y_test)
 
 
 def make_prototype(x_train, y_train, prototypes_per_digit=10, use_sklearn = False):
