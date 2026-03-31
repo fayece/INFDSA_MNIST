@@ -2,6 +2,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+def display_metrics(cm, accuracy):
+    print(f"===== Linear Regression Metrics =====")
+    print(f"Accuracy: {accuracy:.2f}%")
+    print("=====================================")
+
+
 def display_full_confusion_matrix(cm, title="Linear Regression Confusion Matrix"):
     plt.figure(figsize=(10, 8))
     ax = plt.gca()
