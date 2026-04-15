@@ -3,6 +3,19 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 
+plt.style.use('dark_background')
+
+sns.set_theme(style="darkgrid", rc={
+    "axes.facecolor": "black",
+    "figure.facecolor": "black",
+    "grid.color": "#333333",
+    "axes.edgecolor": "white",
+    "axes.labelcolor": "white",
+    "text.color": "white",
+    "xtick.color": "white",
+    "ytick.color": "white"
+})
+
 def display_images(x, y, title=None):
     amount = len(x)
 
