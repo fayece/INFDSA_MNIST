@@ -16,6 +16,14 @@ sns.set_theme(style="darkgrid", rc={
     "ytick.color": "white"
 })
 
+
+def create_confusion_matrix(y_test, y_pred):
+    cm = np.zeros((10, 10), dtype=int)
+    for true, pred in zip(y_test, y_pred):
+        cm[int(true), int(pred)] += 1
+    return cm
+
+
 def display_images(x, y, title=None):
     amount = len(x)
 
