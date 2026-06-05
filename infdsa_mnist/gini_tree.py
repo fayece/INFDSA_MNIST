@@ -15,7 +15,7 @@ def train_gini_tree(x_train, y_train):
     return dt
 
 
-def train_gini_tree_ch7(x_train, y_train):
+def train_gini_tree_ch3(x_train, y_train):
     x_features = np.array([extract_features(img) for img in x_train])
 
     dt = DecisionTreeClassifier(

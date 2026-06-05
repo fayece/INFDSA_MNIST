@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pickle
 
 
-def display_metrics(cm, accuracy):
+def display_metrics(cm, accuracy, models):
     print(f"===== Linear Regression Metrics =====")
     print(f"Accuracy: {accuracy:.2f}%")
+    print(f"Model size: {(len(pickle.dumps(models)) / 1024):.2f} KB")
     print("=====================================")
 
 

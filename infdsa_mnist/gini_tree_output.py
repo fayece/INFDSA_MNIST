@@ -2,6 +2,7 @@ from infdsa_mnist import mnist_output
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import tree
+import pickle
 
 
 def display_full_confusion_matrix(cm, title="Gini Tree Confusion Matrix"):
@@ -36,3 +37,13 @@ def display_decision_tree_structure(dt, max_depth=1):
     plt.figure(figsize=(20, 10))
     tree.plot_tree(dt, max_depth=max_depth, filled=False)
     plt.show()
+
+
+def display_gini_metrics(name, accuracy_score, model):
+    model_bytes = pickle.dumps(model)
+    model_size_kb = len(model_bytes) / 1024
+    
+    print(f"===== Decision Tree Gini Metrics =====")
+    print(f"Accuracy: {accuracy_score:.2%}")
+    print(f"Model size: {model_size_kb:.2f} KB")
+    print(f"======================================")
