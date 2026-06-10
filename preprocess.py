@@ -36,6 +36,17 @@ class ImagePreprocessor:
             return img_arr
         return cls._paste_cropped(cropped)
 
+    @classmethod
+    def resize_to_fit(cls, img_arr, max_size=20):
+        cropped = cls._crop_to_bounding_box(img_arr)
+        if cropped is img_arr:
+            return img_arr
+        h, w = cropped.shape
+        scale = max_size / max(h, w)
+        new_h, new_w = max(1, round(h * scale)), max(1, round(w * scale))
+        resized = Image.fromarray(cropped).resize((new_w, new_h), Image.LANCZOS)
+        return cls._paste_cropped(np.array(resized, dtype=np.uint8))
+
     @staticmethod
     def normalize(img_arr):
         return img_arr / 255.0
@@ -77,7 +88,10 @@ class ImagePreprocessor:
 
     @classmethod
     def process(cls, path):
-        img = cls.load(path)
+        return cls.process_array(cls.load(path))
+
+    @classmethod
+    def process_array(cls, img):
         img = cls.to_greyscale(img)
 
         if cls._should_invert(img):
@@ -85,5 +99,6 @@ class ImagePreprocessor:
 
         img = cls.maximize_contrast(img)
         img = cls.center(img)
+        img = cls.resize_to_fit(img)
         img = cls.normalize(img)
         return cls.flatten(img)
