@@ -51,6 +51,14 @@ class DrawingApp:
         self.root = tk.Tk()
         self.root.title("Draw a digit")
 
+        default_font = ("Geist Mono", 12)
+        self.root.option_add("*Font", default_font)
+
+        self.root.lift()
+        self.root.attributes("-topmost", True)
+        self.root.after_idle(self.root.attributes, "-topmost", False)
+        self.root.focus_force()
+
         self.pil_image = Image.new("L", (280, 280), "black")
         self.draw = ImageDraw.Draw(self.pil_image)
 
@@ -65,6 +73,16 @@ class DrawingApp:
         tk.Button(btn_frame, text="Classify", command=self.classify).pack(side="left")
         tk.Button(btn_frame, text="Clear",    command=self.clear).pack(side="left")
 
+        self.brush_size = tk.IntVar(value=11)
+        self.brush_size_label = tk.Label(self.root, text=f"Brush size: {self.brush_size.get() - 7}")
+        self.brush_size_label.pack()
+        tk.Scale(self.root, from_=8, to=19, orient="horizontal",
+                 variable=self.brush_size, showvalue=0,
+                 command=self.update_brush_size_label).pack()
+
+        tk.Button(self.root, text="Brush guide", command=self.show_brush_guide).pack()
+        self._brush_guide_win = None
+
         self.label = tk.Label(self.root, text="Draw a digit, then click Classify")
         self.label.pack()
 
@@ -75,7 +93,7 @@ class DrawingApp:
         self.last_y = None
 
     def paint(self, event):
-        brush_size = 10
+        brush_size = self.brush_size.get()
         x, y = event.x, event.y
 
         if self.last_x is not None:
@@ -90,6 +108,35 @@ class DrawingApp:
             self.draw.ellipse([x - brush_size, y - brush_size, x + brush_size, y + brush_size], fill="white")
 
         self.last_x, self.last_y = x, y
+
+    def show_brush_guide(self):
+        if self._brush_guide_win is not None:
+            try:
+                self._brush_guide_win.destroy()
+            except tk.TclError:
+                pass  # already closed by the user
+
+        guide = (
+            "Recommended brush sizes (1-12 scale):\n\n"
+            "0:  6-12   naturally thick oval\n"
+            "1:  1-5    thin single stroke\n"
+            "2:  4-10   medium curves\n"
+            "3:  4-10   medium curves\n"
+            "4:  3-8    medium-thin strokes\n"
+            "5:  4-10   medium curves\n"
+            "6:  4-10   medium curves\n"
+            "7:  1-5    thin strokes\n"
+            "8:  5-11   naturally thick double loop\n"
+            "9:  4-10   medium curves"
+        )
+
+        win = tk.Toplevel(self.root)
+        win.title("Brush size guide")
+        tk.Label(win, text=guide, justify="left", padx=10, pady=10).pack()
+        self._brush_guide_win = win
+
+    def update_brush_size_label(self, value):
+        self.brush_size_label.config(text=f"Brush size: {int(value) - 7}")
 
     def reset_last(self, event):
         self.last_x = None
@@ -119,3 +166,8 @@ class DrawingApp:
 
     def run(self):
         self.root.mainloop()
+
+
+if __name__ == "__main__":
+    app = DrawingApp()
+    app.run()
