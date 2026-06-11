@@ -19,7 +19,7 @@ def load_image(filename):
 def classify_image(image, threshold=0.85):
     all_probs = []
     for i in range(total_models):
-        m = NeuralNetworkInference(f'weights_{i}.npz')
+        m = NeuralNetworkInference(f"./weights/weights_{i}.npz")
         _, probs = m.predict(image)
         all_probs.append(probs.flatten().copy())
         del m
